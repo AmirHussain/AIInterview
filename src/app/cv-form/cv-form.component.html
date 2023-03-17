@@ -37,21 +37,25 @@
 
                 <div *ngFor="let skill of getControls('skills'); let i = index">
                     <form [formGroup]="skill">
+                        <mat-grid-list cols="1" rowHeight="62px" style="width: 100%">
+                            <mat-grid-tile>
+                                <mat-form-field>
+                                    <mat-label>Skill</mat-label>
+                                    <input matInput formControlName="skill">
+                                </mat-form-field>
 
-                        <mat-form-field>
-                            <mat-label>Skill</mat-label>
-                            <input matInput formControlName="skill">
-                        </mat-form-field>
-
-                        <mat-form-field>
-                            <mat-label>Level</mat-label>
-                            <input matInput formControlName="level">
-                        </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Level</mat-label>
+                                    <input matInput formControlName="level">
+                                </mat-form-field>
+                            </mat-grid-tile>
+                        </mat-grid-list>
                     </form>
                     <mat-divider style="padding-top:10px ;"></mat-divider>
 
                 </div>
-                <button mat-button (click)="addSkill()">Add Skill</button>
+                <button mat-button mat-raised-button color="" style="margin-bottom: 10px;" (click)="addSkill()">Add
+                    Skill</button>
             </div>
             <div formArrayName="experience">
                 <h3 *ngIf="getControls('experience').length" style="padding-top: 10px;"> Experience</h3>
@@ -87,37 +91,68 @@
                         <mat-divider style="padding-top:10px ;"></mat-divider>
                     </form>
                 </div>
-                <button mat-button (click)="addExperience()">Add Experience</button>
+                <button mat-button mat-raised-button color="" style="margin-bottom: 10px;" (click)="addExperience()">Add
+                    Experience</button>
             </div>
             <div formArrayName="education">
                 <h3 *ngIf="getControls('education').length" style="padding-top: 10px;"> Education</h3>
 
                 <div *ngFor="let edu of getControls('education'); let i = index">
                     <form [formGroup]="edu">
+                        <mat-grid-list cols="1" rowHeight="62px" style="width: 100%">
+                            <mat-grid-tile>
+                                <mat-form-field>
+                                    <mat-label>degree</mat-label>
+                                    <input matInput formControlName="degree">
+                                </mat-form-field>
 
-                        <mat-form-field>
-                            <mat-label>degree</mat-label>
-                            <input matInput formControlName="degree">
-                        </mat-form-field>
-
-                        <mat-form-field>
-                            <mat-label>Institution</mat-label>
-                            <input matInput formControlName="institution">
-                        </mat-form-field>
-                        <mat-form-field>
-                            <mat-label>Year</mat-label>
-                            <input matInput formControlName="year">
-                        </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Institution</mat-label>
+                                    <input matInput formControlName="institution">
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Year</mat-label>
+                                    <input matInput formControlName="year">
+                                </mat-form-field>
+                            </mat-grid-tile>
+                        </mat-grid-list>
                     </form>
 
                     <mat-divider style="padding-top:10px ;"></mat-divider>
                 </div>
-                <button mat-button (click)="addEducation()">Add Education</button>
+                <button mat-button mat-raised-button color="" style="margin-bottom: 10px;" (click)="addEducation()">Add
+                    Education</button>
             </div>
         </form>
     </div>
-    <div style="width: 200px"
-    >
-        <button mat-raised-button color="primary" [disabled]="softwareEngineerCvForm.invalid" (click)="onSubmit()"> Generate Interview</button>
+    <div style="width: 40%">
+        <button mat-raised-button color="primary"
+            [disabled]="softwareEngineerCvForm.invalid|| jobDescriptionForm.invalid" (click)="onSubmit()"
+            style="float: right"> Generate
+            Interview
+
+
+        </button>
+
+        <form [formGroup]="jobDescriptionForm" style="width:100%">
+            <h3>Job Details</h3>
+            <mat-grid-list cols="1" rowHeight="62px" style="width: 100%">
+                <mat-grid-tile>
+                    <mat-form-field>
+                        <mat-label>Title</mat-label>
+                        <input matInput formControlName="title" appearance="fill">
+                    </mat-form-field>
+                </mat-grid-tile>
+            </mat-grid-list>
+            <mat-grid-list cols="1" rowHeight="62px" style="width: 100%">
+                <mat-grid-tile>
+                    <mat-form-field>
+                        <mat-label>Description</mat-label>
+                        <textarea matInput formControlName="description" appearance="fill"></textarea>
+
+                    </mat-form-field>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </form>
     </div>
 </div>

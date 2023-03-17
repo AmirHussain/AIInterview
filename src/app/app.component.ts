@@ -21,14 +21,22 @@ export class AppComponent {
   async setInterviewQuestions(event: {}) {
     this.loading = true;
     this.showInterViewSection = true
-    await this.generateQuestions();
+    const prompt = this.generaPromptForQuestions(event);
+    await this.generateQuestions(prompt);
     this.loading = false;
   }
-  async generateQuestions() {
+
+
+  generaPromptForQuestions(event: {}) {
+    console.log(event);
+    return `Create a list of 8 interview questions of web developer with 5 years of experience in Angular`;
+  }
+
+  async generateQuestions(prompt: string) {
 
 
     try {
-      this.questions = await this.chatgptService.generateQuestions(`Create a list of 8 interview questions of web developer with 5 years of experience in Angular`);
+      this.questions = await this.chatgptService.generateQuestions(prompt);
 
     } catch (error) {
       // Consider adjusting the error handling logic for your use case

@@ -8,8 +8,14 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class CvFormComponent {
   softwareEngineerCvForm: FormGroup;
+  jobDescriptionForm: FormGroup;
   @Output() submittedData = new EventEmitter<{}>();
   constructor(private formBuilder: FormBuilder) {
+
+    this.jobDescriptionForm=this.formBuilder.group({
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+    })
     this.softwareEngineerCvForm = this.formBuilder.group({
       name: ['', Validators.required],
       email: ['', Validators.required],
