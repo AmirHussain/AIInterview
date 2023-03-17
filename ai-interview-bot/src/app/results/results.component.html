@@ -1,0 +1,45 @@
+<div style="display: flex;
+width: 100%;
+align-items: center;
+justify-content: center;">
+    <mat-card class="example-card">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>Result</mat-card-title>
+        </mat-card-header>
+        <img mat-card-image width="300px" [src]="image" alt="Photo of a Shiba Inu">
+        <mat-card-content>
+            <h2> Your score is <strong>{{getResult()}} %</strong></h2>
+        </mat-card-content>
+    </mat-card>
+
+</div>
+<h2>Here are your answers</h2>
+
+<mat-accordion class="example-headers-align">
+    <span *ngFor="let question of questions; let i=index">
+        <mat-expansion-panel [expanded]="step === i" (opened)="setStep(i)" hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    {{question?.question}}
+                </mat-panel-title>
+                <mat-panel-description style="    text-align: right;
+                width: 100%;
+                display: block;">
+                    {{question?.score*100}} %
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <h3>Yout Answer</h3>
+
+            {{question?.userAnswer}}
+
+            <h3>Ideal Answer</h3>
+            {{question?.idealAnswer}}
+            <mat-action-row>
+                <button mat-button color="primary" (click)="nextStep()">Next</button>
+            </mat-action-row>
+        </mat-expansion-panel>
+    </span>
+
+</mat-accordion>

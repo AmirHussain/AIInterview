@@ -1,0 +1,26 @@
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+<mat-progress-bar  *ngIf="!loading"  mode="determinate" [value]="(submittedAnswers)/questions.length * 100"></mat-progress-bar>
+
+<form [formGroup]="questionsForm">
+
+    <mat-stepper *ngIf="!loading&&showStepper" orientation="vertical" [linear]="true" #stepper>
+        <span *ngFor="let question of questions; let i= index">
+            <mat-step [stepControl]="questionsForm.controls['Q'+i]">
+                <ng-template matStepLabel>{{question?.question}}</ng-template>
+                <mat-form-field appearance="fill">
+                    <textarea matInput [disabled]="submittedAnswers>=(i+1)"  [formControlName]="'Q'+i" required></textarea>
+                </mat-form-field>
+                <div>
+
+                    <button mat-button  *ngIf="i<(questions.length-1)" matStepperNext (click)="!(submittedAnswers>=(i+1))?submitResult(i):null">Next</button>
+                    <button mat-button  *ngIf="i===(questions.length-1)" (click)="submitResult(i)">Done</button>
+
+                </div>
+            </mat-step>
+        </span>
+    </mat-stepper>
+
+    <div *ngIf="!showStepper">
+        Your score is {{averageScore}}
+    </div>
+</form>
