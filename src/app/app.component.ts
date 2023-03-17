@@ -27,9 +27,26 @@ export class AppComponent {
   }
 
 
-  generaPromptForQuestions(event: {}) {
+  getSkillSentence(){
+
+  }
+  generaPromptForQuestions(event: any) {
     console.log(event);
-    return `Create a list of 8 interview questions of web developer with 5 years of experience in Angular`;
+
+return `Generate 20 interview questions for \nAnswer:${event.title} having \njobDescription:( ${event.description} ).
+User is having following skills: ${event.skills.forEach((skill:any, index:number) => {
+  return `${index}-  ${skill.skill} expertise of ${skill.Level} level`
+})}
+User is having following education: ${event.education.forEach((edu:any, index:number) => {
+  return `${index}-  ${edu.degree} from ${edu.institution}`
+})}
+
+User is having this experience: ${event.experience.forEach((exp:any, index:number) => {
+  return `${index}-  ${exp.Role} in  ${exp.Organization} for ${exp.NoOfYears} years and was performing responsibilities ${exp.Responsibilities}`
+})}
+`
+
+    // return `Create a list of 8 interview questions of web developer with 5 years of experience in Angular`;
   }
 
   async generateQuestions(prompt: string) {

@@ -21,7 +21,7 @@ export class InterviewComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['questions'].currentValue !== changes['questions'].previousValue) {
+    if (changes['questions'] && changes['questions'].currentValue !== changes['questions'].previousValue) {
       console.log(this.questions)
       this.questions.forEach((question, index) => {
         this.questionsForm.addControl(`Q${index}`, new FormControl('', Validators.required));

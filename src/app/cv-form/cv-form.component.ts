@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, OnChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -6,17 +6,13 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: './cv-form.component.html',
   styleUrls: ['./cv-form.component.scss']
 })
-export class CvFormComponent {
+export class CvFormComponent implements OnInit {
   softwareEngineerCvForm: FormGroup;
-  jobDescriptionForm: FormGroup;
   @Output() submittedData = new EventEmitter<{}>();
   constructor(private formBuilder: FormBuilder) {
-
-    this.jobDescriptionForm=this.formBuilder.group({
+    this.softwareEngineerCvForm = this.formBuilder.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
-    })
-    this.softwareEngineerCvForm = this.formBuilder.group({
       name: ['', Validators.required],
       email: ['', Validators.required],
       phone: [''],
@@ -24,8 +20,11 @@ export class CvFormComponent {
       skills: this.formBuilder.array([]),
       experience: this.formBuilder.array([]),
       education: this.formBuilder.array([]),
-      certifications: this.formBuilder.array([]),
     });
+  }
+
+  ngOnInit(): void {
+  
   }
   addEducation() {
     const educationControl = this.softwareEngineerCvForm.controls['education'] as FormArray;
@@ -74,6 +73,17 @@ export class CvFormComponent {
   }
   onSubmit() {
     console.log(this.softwareEngineerCvForm.value);
-    this.submittedData.emit(this.softwareEngineerCvForm.value)
+
+    this.softwareEngineerCvForm.controls['skills'].updateValueAndValidity();
+    this.softwareEngineerCvForm.controls['experience'].updateValueAndValidity();
+    this.softwareEngineerCvForm.controls['education'].updateValueAndValidity();
+  
+  
+  if(this.softwareEngineerCvForm.invalid){
+    alert('invalid form')
+    return;
+  }
+  
+  this.submittedData.emit(this.softwareEngineerCvForm.value)
   }
 }
